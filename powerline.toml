@@ -30,7 +30,7 @@ show_always = true
 format = '[$user ](none)'
 
 [os]
-format = '[](#2f4280)[$symbol](#ffff00 bg:#2f4280)'
+format = '[](#2f4280)[$symbol ](#ffff00 bg:#2f4280)'
 disabled = false
 [os.symbols]
 Arch = " "
@@ -43,7 +43,7 @@ read_only = ''
 fish_style_pwd_dir_length = 2
 
 [git_branch]
-format = '[─](#FFCF96)[$symbol\($branch\)(:$remote_branch)](black bg:#FFCF96)[](#FFCF96)'
+format = '[─](#FFCF96)[on $symbol\($branch\)(:$remote_branch)](black bg:#FFCF96)[](#FFCF96)'
 symbol = ' '
 
 [git_status]
@@ -66,15 +66,15 @@ ignore_base = false
 
 [cmd_duration]
 min_time = 300
-format = '[$duration](black bg:white)─'
+format = '[$duration](black bg:white)'
 
 [status]
-format = '[](#8590FF)[$symbol$status ](black bg:#8590FF)' 
-success_symbol = '[ ](#008140 bg:#8590FF)'
-symbol = '[ ](bold red bg:#8590FF)'
+format = '$symbol' 
+success_symbol = '[](green)[󰄭 ](black bg:green)[](green)'
+symbol = '[](red)[ $status](white bg:red)[](red)'
 disabled = false
 
 [time]
-format = '[](#3128AA bg:#8590FF)[$time](bg:#3128AA)[](#3128AA)'
+format = '[](#3128AA)[$time ](bg:#3128AA)[ ](#3128AA)'
 disabled = false
 
