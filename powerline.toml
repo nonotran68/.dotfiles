@@ -46,7 +46,7 @@ format = '[ ](#FFCF96)[on $symbol\($branch\)(:$remote_branch)](black bg:#FFCF
 symbol = ' '
 
 [git_status]
-format = "[](#ffaa00)[$all_status$ahead_behind](black bg:#ffaa00)[](#ffaa00) "
+format = "[─](#ffaa00)[$all_status$ahead_behind](black bg:#ffaa00)[](#ffaa00) "
 untracked = '[?${count} ](red bg:#ffaa00)'
 staged = '[+${count} ](black bg:#ffaa00)'
 modified = '[!${count} ](#1B1A55 bg:#ffaa00)'
