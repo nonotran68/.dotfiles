@@ -50,14 +50,14 @@ format = "[─](#ffaa00)[$all_status$ahead_behind](black bg:#ffaa00)[](#ff
 untracked = '[?${count} ](red bg:#ffaa00)'
 staged = '[+${count} ](black bg:#ffaa00)'
 modified = '[!${count} ](#1B1A55 bg:#ffaa00)'
+
+[git_commit]
+only_detached = false
+tag_disabled = false
+
 [fill]
 symbol = ' '
 style = '#8EC7FF'
-
-[git_commit]
-commit_hash_length = 4
-tag_symbol = '🔖 '
-tag_disabled = false
 
 [conda]
 format = '[](green)[$symbol$environment](black bg:green)[─](green)'
