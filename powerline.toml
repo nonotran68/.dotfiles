@@ -6,25 +6,24 @@
 #noto color emoji is causing bug (do not use this)
 #$fill════╝\
 format = """
-[╔](#59b4c3)\
+[┌](#D37676)\
 $os\
 $directory\
 $git_branch\
 $git_status\
-$fill\
+ $fill \
 $git_commit\
 $cmd_duration\
 $conda\
 $status\
 $time
-[╚═](#59b4c3)\
-$character\
+[└─](#D37676)$character\
 
 """
 add_newline = false
 [character] # The name of the module we are configuring is 'character'
-success_symbol = '[](#59B4C3)[](#74E291)[](#EFF396)' 
-error_symbol = '[](#A94438)[](#D24545)[](#FF8080)' # The 'success_symbol' segment is being set to '➜' with the color 'bold green'
+success_symbol = '[󰄾](#59B4C3)[󰄾](#74E291)[󰄾](#EFF396)' 
+error_symbol = '[󰄾](#A94438)[󰄾](#D24545)[󰄾](#FF8080)' # The 'success_symbol' segment is being set to '➜' with the color 'bold green'
 [username]
 show_always = true
 format = '[$user ](none)'
@@ -43,7 +42,7 @@ read_only = ''
 fish_style_pwd_dir_length = 2
 
 [git_branch]
-format = '[─](#FFCF96)[on $symbol\($branch\)(:$remote_branch)](black bg:#FFCF96)[](#FFCF96)'
+format = '[ ](#FFCF96)[on $symbol\($branch\)(:$remote_branch)](black bg:#FFCF96)[](#FFCF96)'
 symbol = ' '
 
 [git_status]
