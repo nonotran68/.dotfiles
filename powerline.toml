@@ -6,7 +6,7 @@
 #noto color emoji is causing bug (do not use this)
 #$fill════╝\
 format = """
-[┌](#D37676)\
+[┌](#3D3B40)\
 $os\
 $directory\
 $git_branch\
@@ -17,9 +17,11 @@ $cmd_duration\
 $conda\
 $status\
 $time
-[└─](#D37676)$character\
+[└─](#3D3B40)\
+$character\
 
 """
+
 add_newline = false
 [character] # The name of the module we are configuring is 'character'
 success_symbol = '[󰄾](#59B4C3)[󰄾](#74E291)[󰄾](#EFF396)' 
@@ -52,9 +54,10 @@ staged = '[+${count} ](black bg:#ffaa00)'
 modified = '[!${count} ](#1B1A55 bg:#ffaa00)'
 
 [git_commit]
+format = '[#$hash $tag](#BE7B72) '
 only_detached = false
 tag_disabled = false
-
+tag_symbol = '' 
 [fill]
 symbol = ' '
 style = '#8EC7FF'
