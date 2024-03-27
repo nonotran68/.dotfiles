@@ -107,9 +107,6 @@ vim.opt.relativenumber = true
 -- Enable mouse mode, can be useful for resizing splits for example!
 vim.opt.mouse = 'a'
 
---Set hidden to use buffer more effectively
-vim.opt.hidden = true
-
 -- Don't show the mode, since it's already in the status line
 vim.opt.showmode = false
 
@@ -120,6 +117,10 @@ vim.opt.clipboard = 'unnamedplus'
 
 -- Enable break indent
 vim.opt.breakindent = true
+
+vim.opt.shiftwidth = 4
+vim.opt.tabstop = 4
+vim.opt.softtabstop = 4
 
 -- Enable line break
 vim.opt.linebreak = true
@@ -206,7 +207,7 @@ vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper win
 vim.keymap.set('n', '<A-t>', '<Cmd>tabnew<CR>', { desc = 'Tab Edit', silent = true })
 vim.keymap.set('n', '<A-w>', function()
   vim.cmd.BufferClose()
-  vim.cmd.tabclose { bang = true }
+  vim.cmd.tabclose()
 end, { desc = 'Tab Close' })
 
 -- Move to previous/next
@@ -237,19 +238,24 @@ vim.api.nvim_create_autocmd('TermOpen', {
   command = 'startinsert',
 })
 
--- Create keymaps to compile and run depend on filetypes.
+-- Create keymaps to compile and run depend on filetypes. Work only on UNIX
 
 vim.api.nvim_create_autocmd({ 'BufEnter', 'BufNew' }, {
   group = vim.api.nvim_create_augroup('compile-and-run', { clear = true }),
   pattern = '*',
   callback = function()
     local file_type = vim.bo.filetype
+    -- For Python
     if file_type == 'python' then
       vim.keymap.set('n', '<leader>cc', '<Cmd>w | botright vsplit | terminal python %<CR>', { silent = true, desc = 'Python Compile and Run!' })
+      -- FOR CPP compiler
     elseif file_type == 'cpp' then
-      vim.keymap.set('n', '<leader>cc', function()
-        print 'CPP!'
-      end, { desc = 'cpp' })
+      vim.keymap.set(
+        'n',
+        '<leader>cc',
+        '<Cmd>w | botright vsplit | terminal g++ -Wall % -o %:r.out && ./%:r.out && rm %:r.out<CR>',
+        { silent = true, desc = 'CPP Compile and Run!' }
+      )
     elseif file_type == 'c' then
       vim.keymap.set('n', '<leader>cc', function()
         print 'C!'
@@ -632,7 +638,7 @@ require('lazy').setup({
       --  - settings (table): Override the default settings passed when initializing the server.
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       local servers = {
-        -- clangd = {},
+        clangd = {},
         -- gopls = {},
         -- pyright = {},
         -- rust_analyzer = {},
@@ -822,24 +828,6 @@ require('lazy').setup({
     end,
   },
 
-  { -- You can easily change to a different colorscheme.
-    -- Change the name of the colorscheme plugin below, and then
-    -- change the command in the config to whatever the name of that colorscheme is.
-    --
-    -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
-    'folke/tokyonight.nvim',
-    priority = 1000, -- Make sure to load this before all the other start plugins.
-    init = function()
-      -- Load the colorscheme here.
-      -- Like many other themes, this one has different styles, and you could load
-      -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-      vim.cmd.colorscheme 'tokyonight-night'
-
-      -- You can configure highlights by doing something like:
-      vim.cmd.hi 'Comment gui=none'
-    end,
-  },
-
   -- Highlight todo, notes, etc in comments
   { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
 
@@ -910,6 +898,92 @@ require('lazy').setup({
       --    - Treesitter + textobjects: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
     end,
   },
+  { -- You can easily change to a different colorscheme.
+    -- Change the name of the colorscheme plugin below, and then
+    -- change the command in the config to whatever the name of that colorscheme is.
+    --
+    -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
+    'folke/tokyonight.nvim',
+    priority = 1000,
+    -- config = function()
+    --   require('tokyonight').setup {
+    --     -- your configuration comes here
+    --     -- or leave it empty to use the default settings
+    --     style = 'storm', -- The theme comes in three styles, `storm`, `moon`, a darker variant `night` and `day`
+    --     light_style = 'day', -- The theme is used when the background is set to light
+    --     transparent = false, -- Enable this to disable setting the background color
+    --     terminal_colors = false, -- Configure the colors used when opening a `:terminal` in [Neovim](https://github.com/neovim/neovim)
+    --     styles = {
+    --       -- Style to be applied to different syntax groups
+    --       -- Value is any valid attr-list value for `:help nvim_set_hl`
+    --       comments = { italic = true },
+    --       keywords = { italic = true },
+    --       functions = {},
+    --       variables = {},
+    --       -- Background styles. Can be "dark", "transparent" or "normal"
+    --       sidebars = 'dark', -- style for sidebars, see below
+    --       floats = 'dark', -- style for floating windows
+    --     },
+    --     sidebars = { 'qf', 'help' }, -- Set a darker background on sidebar-like windows. For example: `["qf", "vista_kind", "terminal", "packer"]`
+    --     day_brightness = 0.3, -- Adjusts the brightness of the colors of the **Day** style. Number between 0 and 1, from dull to vibrant colors
+    --     hide_inactive_statusline = false, -- Enabling this option, will hide inactive statuslines and replace them with a thin border instead. Should work with the standard **StatusLine** and **LuaLine**.
+    --     dim_inactive = false, -- dims inactive windows
+    --     lualine_bold = false, -- When `true`, section headers in the lualine theme will be bold
+    --
+    --     --- You can override specific color groups to use other groups or a hex color
+    --     --- function will be called with a ColorScheme table
+    --     ---@param colors ColorScheme
+    --     on_colors = function(colors) end,
+    --
+    --     --- You can override specific highlights to use other groups or a hex color
+    --     --- function will be called with a Highlights and ColorScheme table
+    --     ---@param highlights Highlights
+    --     ---@param colors ColorScheme
+    --     on_highlights = function(highlights, colors) end,
+    --   }
+    -- end,
+    -- init = function()
+    --   -- Load the colorscheme here.
+    --   -- Like many other themes, this one has different styles, and you could load
+    --   -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
+    --   vim.cmd.colorscheme 'tokyonight'
+    --   -- You can configure highlights by doing something like:
+    --   vim.cmd.hi 'Comment gui=italic'
+    -- end,
+  },
+  {
+    'navarasu/onedark.nvim',
+    priority = 1000,
+    config = function()
+      --Set style for onedark themes.
+      require('onedark').setup {
+        style = 'darker',
+        term_colors = false,
+        code_style = {
+          comments = 'none',
+          keywords = 'italic',
+          functions = 'none',
+          strings = 'none',
+          variables = 'none',
+        },
+      }
+      --Load themes here.
+      require('onedark').load()
+    end,
+  },
+  {
+    'ellisonleao/gruvbox.nvim',
+    priority = 1000,
+    config = true,
+  },
+  {
+    'catppuccin/nvim',
+    name = 'catppuccin',
+    priority = 1000,
+    -- init = function()
+    --   vim.cmd.colorscheme 'catppuccin-frappe'
+    -- end,
+  },
 
   -- The following two comments only work if you have downloaded the kickstart repo, not just copy pasted the
   -- init.lua. If you want these files, they are in the repository, so you can just download them and
@@ -921,7 +995,7 @@ require('lazy').setup({
   --  Uncomment any of the lines below to enable them (you will need to restart nvim).
   --
   -- require 'kickstart.plugins.debug',
-  -- require 'kickstart.plugins.indent_line',
+  require 'kickstart.plugins.indent_line',
   -- require 'kickstart.plugins.lint',
 
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
