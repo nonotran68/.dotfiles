@@ -189,10 +189,10 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagn
 vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 
 -- TIP: Disable arrow keys in normal mode
--- vim.keymap.set('n', '<left>', '<cmd>echo "Use h to move!!"<CR>')
--- vim.keymap.set('n', '<right>', '<cmd>echo "Use l to move!!"<CR>')
--- vim.keymap.set('n', '<up>', '<cmd>echo "Use k to move!!"<CR>')
--- vim.keymap.set('n', '<down>', '<cmd>echo "Use j to move!!"<CR>')
+vim.keymap.set('n', '<left>', '<cmd>echo "Use h to move!!"<CR>')
+vim.keymap.set('n', '<right>', '<cmd>echo "Use l to move!!"<CR>')
+vim.keymap.set('n', '<up>', '<cmd>echo "Use k to move!!"<CR>')
+vim.keymap.set('n', '<down>', '<cmd>echo "Use j to move!!"<CR>')
 
 -- Keybinds to make split navigation easier.
 --  Use CTRL+<hjkl> to switch between windows
@@ -267,23 +267,6 @@ vim.api.nvim_create_autocmd({ 'BufEnter', 'BufNew' }, {
     end
   end,
 })
--- vim.keymap.set('n', '<leader>cc', '<Cmd>lua Setkeymap()<CR>', { desc = 'WTF dude' })
--- function Setkeymap()
---   local file_type = vim.bo.filetype
---   if file_type == 'lua' then
---     vim.api.nvim_put({ -- insert text in buffer
---       "print('Hello World')",
---     }, '', true, true)
---   elseif file_type == 'typescript' then
---     vim.api.nvim_put({
---       "console.log('Hello');",
---       "console.log('World');", -- add text on next line
---     }, '', true, true)
---   elseif file_type == 'python' then
---     vim.keymap.set('n', '<leader>cc', '<Cmd>w | botright vsplit | terminal python %<CR>', { silent = true, desc = 'Python Compile and Run!' })
---     print 'Unknown filetype, mapping not defined.'
---   end
--- end
 --
 -- [[ Install `lazy.nvim` plugin manager ]]
 --    See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info
@@ -338,7 +321,7 @@ require('lazy').setup({
       },
     },
   },
-  -- Add Barline
+  -- Add Bufferline
   {
     'romgrk/barbar.nvim',
     dependencies = {
