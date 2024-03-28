@@ -21,6 +21,11 @@ super + e
 super + Escape
 	pkill -USR1 -x sxhkd
 
+#add printscreen for screenshot
+Print
+	gnome-screenshot
+super + Print
+	gnome-screenshot -i
 #
 # bspwm hotkeys
 #
