@@ -5,6 +5,15 @@ export ZSH_PLUGIN=$HOME/.dotfiles/zsh-plugins
 HISTSIZE=40000
 SAVEHIST=40000
 
+####################
+###    ALIAS     ###
+####################
+
+alias c=clear
+alias l=lsd
+alias ll='lsd -la --group-directories-first'
+alias v=nvim
+alias vf='nvim $(fzf)'
 
 setopt autocd
 setopt HIST_IGNORE_ALL_DUPS
