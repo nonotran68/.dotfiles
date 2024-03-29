@@ -4,7 +4,7 @@
 
 # terminal emulator
 super + Return
-	kitty
+	bspc rule -r tail && bspc rule -a kitty state=tiled && kitty
 
 # program launcher
 super + @space
@@ -26,7 +26,24 @@ Print
 	gnome-screenshot
 super + Print
 	gnome-screenshot -i
+
+# Task manager
+super + h
+	bspc rule -r tail && bspc rule -a kitty state=floating rectangle=900x650+962+114 && kitty -o font_size=9 --title 'btop' -e btop
+
+#Volume Control
+XF86AudioLowerVolume
+	amixer set Master 5%-
+XF86AudioRaiseVolume
+	amixer set Master 5%+
+XF86AudioMute
+	amixer set Master toggle
 #
+#Brightness control (require brillo and users is added to video group)
+XF86MonBrightnessUp
+	brillo -q -A 3
+XF86MonBrightnessDown
+	brillo -q -U 3
 # bspwm hotkeys
 #
 
