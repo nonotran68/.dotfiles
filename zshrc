@@ -2,6 +2,8 @@
 # Lines configured by zsh-newuser-install
 export HISTFILE=~/.histfile
 export ZSH_PLUGIN=$HOME/.dotfiles/zsh-plugins
+export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -l -f -g ""'
+
 HISTSIZE=40000
 SAVEHIST=40000
 
@@ -14,6 +16,7 @@ alias l=lsd
 alias ll='lsd -la --group-directories-first'
 alias v=nvim
 alias vf='nvim $(fzf)'
+
 
 setopt autocd
 setopt HIST_IGNORE_ALL_DUPS
