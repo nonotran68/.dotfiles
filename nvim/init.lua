@@ -248,6 +248,8 @@ vim.api.nvim_create_autocmd({ 'BufEnter', 'BufNew' }, {
     -- For Python
     if file_type == 'python' then
       vim.keymap.set('n', '<leader>cc', '<Cmd>w | botright vsplit | terminal python %<CR>', { silent = true, desc = 'Python Compile and Run!' })
+    elseif file_type == 'lua' then
+      vim.keymap.set('n', '<leader>cc', '<Cmd>w | botright vsplit | terminal lua %<CR>', { silent = true, desc = 'Lua Compile and Run!' })
       -- FOR CPP compiler
     elseif file_type == 'cpp' then
       vim.keymap.set(
@@ -455,6 +457,9 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
       vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
       vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = '[S]earch by [G]rep' })
+      vim.keymap.set('n', '<leader>se', function()
+        require('luasnip.loaders').edit_snippet_files()
+      end, { desc = '[S]nippet [E]dit File' })
       vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
       vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
       vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
@@ -731,6 +736,7 @@ require('lazy').setup({
             'rafamadriz/friendly-snippets',
             config = function()
               require('luasnip.loaders.from_vscode').lazy_load()
+              require('luasnip.loaders.from_vscode').lazy_load { paths = './my-snippets/' }
             end,
           },
         },
@@ -742,13 +748,13 @@ require('lazy').setup({
       --  into multiple repos for maintenance purposes.
       'hrsh7th/cmp-nvim-lsp',
       'hrsh7th/cmp-path',
+      'hrsh7th/cmp-nvim-lsp-signature-help',
     },
     config = function()
       -- See `:help cmp`
       local cmp = require 'cmp'
       local luasnip = require 'luasnip'
       luasnip.config.setup {}
-
       cmp.setup {
         snippet = {
           expand = function(args)
@@ -826,6 +832,7 @@ require('lazy').setup({
           { name = 'nvim_lsp' },
           { name = 'luasnip' },
           { name = 'path' },
+          { name = 'nvim_lsp_signature_help' },
         },
       }
     end,
