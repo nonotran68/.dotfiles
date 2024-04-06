@@ -41,4 +41,4 @@ source "$ZSH_PLUGIN/zsh-z/zsh-z.plugin.zsh"
 source "$ZSH_PLUGIN/zsh-fzf-history-search/zsh-fzf-history-search.zsh"
 # Start starship prompt
 eval "$(starship init zsh)"
-eval "$(atuin init zsh --disable-ctrl-r)"
+# eval "$(atuin init zsh --disable-ctrl-r)"

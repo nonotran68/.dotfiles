@@ -21,7 +21,7 @@ $time
 $character\
 
 """
-
+command_timeout = 600
 add_newline = false
 [character] # The name of the module we are configuring is 'character'
 success_symbol = '[󰄾](#59B4C3)[󰄾](#74E291)[󰄾](#EFF396)' 
