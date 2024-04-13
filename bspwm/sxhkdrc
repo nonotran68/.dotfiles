@@ -29,7 +29,7 @@ super + Print
 
 # Task manager
 super + h
-	bspc rule -r tail && bspc rule -a kitty state=floating rectangle=900x650+962+114 && kitty -o font_size=9 --title 'btop' -e btop
+	bspc rule -r tail && bspc rule -a kitty state=floating rectangle=906x608+229+76 && kitty -o font_size=9 --title 'btop' -e btop
 
 #Volume Control
 XF86AudioLowerVolume

@@ -17,7 +17,8 @@ alias ll='lsd -la --group-directories-first'
 alias v=nvim
 alias vf='nvim $(fzf)'
 alias ...=../..
-
+alias cde='conda deactivate'
+alias caa='conda activate archconda'
 setopt autocd
 setopt HIST_IGNORE_ALL_DUPS
 bindkey -e
@@ -95,3 +96,8 @@ do
   alias $lazy_conda_alias="load_conda && $lazy_conda_alias"
 done
 # <<< Lazy load conda <<<
+
+jl ()
+{
+    tmux new-session -d -s jupyter 'jupyter lab'
+}

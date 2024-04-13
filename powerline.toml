@@ -11,7 +11,7 @@ $os\
 $directory\
 $git_branch\
 $git_status\
- $fill \
+$fill\
 $git_commit\
 $cmd_duration\
 $conda\
@@ -62,8 +62,14 @@ tag_symbol = ''
 symbol = ' '
 style = '#8EC7FF'
 
+[python]
+format = '[](#3474a4)[${symbol}${pyenv_prefix}${version}](#fcd444 bg:#3474a4)[](#3474a4)'
+symbol = ' '
+version_format = '${raw}'
+
 [conda]
-format = '[](green)[$symbol$environment](black bg:green)[─](green)'
+format = '[](green)[$symbol$environment](black bold bg:green)[─](green)'
+symbol = '󱔎 ' 
 ignore_base = false
 
 [cmd_duration]

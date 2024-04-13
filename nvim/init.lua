@@ -255,7 +255,7 @@ vim.api.nvim_create_autocmd({ 'BufEnter', 'BufNew' }, {
       vim.keymap.set(
         'n',
         '<leader>cc',
-        '<Cmd>w | botright vsplit | terminal g++ -Wall % -o %:r.out && ./%:r.out && rm %:r.out<CR>',
+        '<Cmd>w | botright vsplit | terminal g++ -Wall -Werror -Weffc++ -Wextra -Wconversion -Wsign-conversion -pedantic-errors -std=c++20 % -o %:r.out && ./%:r.out && rm %:r.out<CR>',
         { silent = true, desc = 'CPP Compile and Run!' }
       )
     elseif file_type == 'c' then
