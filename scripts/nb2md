@@ -1,0 +1,41 @@
+#!/bin/bash
+
+# Check if nbconvert is installed
+if ! command -v jupyter &> /dev/null; then
+  echo "Error: nbconvert is not installed. Please install it using 'pip install nbconvert'."
+  exit 1
+fi
+
+# Define function for conversion
+convert_notebook() {
+  filename="$1"
+  base_name="${filename%.*}"
+
+  # Convert notebook to markdown using nbconvert
+  jupyter nbconvert --to markdown "$filename" --output "$base_name.md" &> /dev/null
+
+  # Check for conversion errors (redirecting output and error to /dev/null)
+  if [[ $? -ne 0 ]]; then
+    echo "Error converting $filename"
+  else
+    echo "Converted $filename to $base_name.md"
+  fi
+}
+
+# Handle arguments (convert specific files)
+if [[ $# -gt 0 ]]; then
+  # Loop through provided arguments (filenames)
+  for arg in "$@"; do
+    if [[ ! -f "$arg" || ! "$arg" =~ \.ipynb$ ]]; then
+      echo "Error: '$arg' is not a valid Jupyter notebook file."
+    else
+      convert_notebook "$arg"
+    fi
+  done
+else
+  # No arguments provided, convert all .ipynb files
+  for filename in *.ipynb; do
+    convert_notebook "$filename"
+  done
+  echo "Converted all Jupyter notebooks in current directory to markdown."
+fi

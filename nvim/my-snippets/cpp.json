@@ -1,0 +1,18 @@
+{
+	"example template": {
+		"prefix": "hel",
+		"body": [
+			"std::cout << Hello ${1:text};"
+		],
+		"description": "hello"
+	},
+	"Normal main": {
+		"prefix": "main()",
+		"body": [
+			"main() {",
+			"\t$1",
+			"\treturn 0;",
+			"}"	
+		]
+	}
+}

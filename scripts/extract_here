@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# Kiểm tra đối số
+if [ $# -eq 0 ]; then
+  echo "Vui lòng cung cấp ít nhất một file zip để unzip."
+  exit 1
+fi
+
+# Unzip nhiều file zip
+for zipFile in "$@"; do
+  if [ ! -f "$zipFile" ]; then
+    echo "File $zipFile không tồn tại."
+    continue
+  fi
+
+  unzip -d "${zipFile%*.zip}" "$zipFile"
+done

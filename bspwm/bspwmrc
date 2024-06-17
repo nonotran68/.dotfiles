@@ -1,0 +1,43 @@
+#!/bin/env bash
+
+xsetroot -cursor_name left_ptr
+
+# polkit
+/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
+
+# autostart
+pgrep -x sxhkd > /dev/null || sxhkd -c $HOME/.config/bspwm/sxhkdrc &
+
+fcitx5 &
+
+$HOME/.fehbg
+$HOME/.config/polybar/launch.sh
+
+picom &
+
+bspc monitor -d 1 2 3 4 5
+
+bspc config border_width 2
+bspc config window_gap 15
+
+bspc config focused_border_color		'#00ff00'
+bspc config normal_border_color			'#2b3338'
+bspc config split_ratio				0.52
+bspc config borderless_monocle			true
+bspc config gapless_monocle			true
+bspc config focus_follows_pointer		true
+
+bspc rule -a Brave-browser desktop='^2' follow=on
+bspc rule -a scratchpad rectangle=1000x500+0+0 center=on
+# bspc rule -a Chromium desktop='^2'
+# bspc rule -a mplayer2 state=floating
+# bspc rule -a Kupfer.py focus=on
+# bspc rule -a Screenkey manage=off
+
+# Set rule for windows
+# bspc rule -a Gnome-screenshot state=floating
+# bspc rule -a fontforge state=floating
+# bspc rule -a conky state=floating border=off locked=on private=on
+# conky &
+# Always put kitty rule at the end of file
+# bspc rule -a kitty state=tiled

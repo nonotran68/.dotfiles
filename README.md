@@ -1,0 +1,3 @@
+# .dotfiles
+
+> Simple BSPWM dotfiles
