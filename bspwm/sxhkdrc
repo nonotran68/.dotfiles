@@ -6,6 +6,9 @@
 super + {_, alt + }Return
 	{kitty, tdrop -am -w 50% -h 50% -x 25% -y 25% -r -n 0 kitty}
 
+#alternative terminal shortcut by one hand
+alt + space
+	kitty
 # program launcher
 super + @space
 	dmenu_run
