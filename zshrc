@@ -13,7 +13,7 @@ SAVEHIST=40000
 ####################
 alias sudo='sudo '
 alias c=clear
-alias l=lsd
+alias l='lsd --group-directories-first'
 alias ll='lsd -la --group-directories-first'
 alias v=nvim
 alias vf='nvim $(fzf)'
@@ -108,12 +108,16 @@ do
 done
 # <<< Lazy load conda <<<
 
-jl ()
+jlab ()
 {
     tmux new-session -d -s jupyter 'jupyter lab'
 }
 
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# fnm
+FNM_PATH="/home/datpc/.local/share/fnm"
+if [ -d "$FNM_PATH" ]; then
+  export PATH="/home/datpc/.local/share/fnm:$PATH"
+  eval "`fnm env`"
+fi
