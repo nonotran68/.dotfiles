@@ -10,6 +10,7 @@ pgrep -x sxhkd > /dev/null || sxhkd -c $HOME/.config/bspwm/sxhkdrc &
 
 fcitx5 &
 
+XDG_SESSION_TYPE=x11 plank &
 $HOME/.fehbg
 $HOME/.config/polybar/launch.sh
 

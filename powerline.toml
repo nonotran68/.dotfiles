@@ -75,12 +75,12 @@ ignore_base = false
 
 [cmd_duration]
 min_time = 300
-format = '[$duration](black bg:white)'
+format = '[](#ffffff)[$duration](#000000 bg:#ffffff)[](#ffffff)'
 
 [status]
 format = '$symbol' 
 success_symbol = '[](green)[󰄭 ](black bg:green)[](green)'
-symbol = '[](red)[ $status](white bg:red)[](red)'
+symbol = '[](#ff0000)[ $status](#ffffff bg:#ff0000)[](#ff0000)'
 disabled = false
 
 [time]

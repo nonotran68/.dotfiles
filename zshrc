@@ -1,4 +1,4 @@
-
+export EDITOR=nvim
 # Lines configured by zsh-newuser-install
 export HISTFILE=~/.histfile
 export ZSH_PLUGIN=$HOME/.dotfiles/zsh-plugins
@@ -113,7 +113,12 @@ jlab ()
     tmux new-session -d -s jupyter 'jupyter lab'
 }
 
+lfcd () {
+    # `command` is needed in case `lfcd` is aliased to `lf`
+    cd "$(command lf -print-last-dir "$@")"
+}
 
+bindkey -s '^o' 'lfcd\n'
 
 # fnm
 FNM_PATH="/home/datpc/.local/share/fnm"
