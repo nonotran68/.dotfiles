@@ -1,0 +1,14 @@
+{
+	"Hint": {
+		"prefix": "de",
+		"body": [
+			"<details>",
+			"\t<summary><b>${1:hint}</b></summary>\n",
+			"\t```",
+			"\t$2",
+			"\t```",
+			"</details>"
+		]
+	}
+
+}

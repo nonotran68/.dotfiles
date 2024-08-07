@@ -1,27 +1,62 @@
 #!/bin/bash
 
-# Get the source directory containing the fonts from the first argument
-source_dir="$1"
+# Thư mục đích để copy font
+DESTINATION="/usr/local/share/fonts/"
 
-# Target directory for fonts
-target_dir="/usr/local/share/fonts"
+# Biến để kiểm tra chế độ verbose
+VERBOSE=0
 
-# Check if source directory exists
-if [ ! -d "$source_dir" ]; then
-  echo "Error: Source directory '$source_dir' does not exist."
-  exit 1
+# Phân tích các tham số đầu vào
+while getopts "v" opt; do
+  case ${opt} in
+    v )
+      VERBOSE=1
+      ;;
+    \? )
+      echo "Usage: $0 [-v] [source_file_or_directory ...]"
+      exit 1
+      ;;
+  esac
+done
+
+shift $((OPTIND -1))
+
+# Kiểm tra xem có đủ tham số không
+if [ "$#" -eq 0 ]; then
+  # Nếu không có tham số nào, sử dụng thư mục hiện tại làm source
+  SOURCES=(".")
+else
+  # Nếu có tham số, sử dụng chúng làm source
+  SOURCES=("$@")
 fi
 
-# Check for root privileges (sudo) since target directory requires administrative access
-if [ "$(id -u)" != "0" ]; then
-  echo "This script requires root privileges. Please run with sudo."
-  exit 1
-fi
+# Lặp qua từng source để copy
+for SOURCE in "${SOURCES[@]}"; do
+  # Kiểm tra xem source có tồn tại không
+  if [ ! -e "$SOURCE" ]; then
+    echo "Source file or directory does not exist: $SOURCE"
+    continue
+  fi
 
-# Copy the fonts directory (use -r flag for recursive copy)
-cp -r "$source_dir" "$target_dir"
+  # Hiển thị thông tin nếu chế độ verbose được bật
+  if [ $VERBOSE -eq 1 ]; then
+    echo "Copying from $SOURCE to $DESTINATION"
+  fi
 
-# Update the font cache (optional, but recommended)
-fc-cache -f -v
+  # Copy font từ source sang destination
+  if [ -d "$SOURCE" ]; then
+    # Nếu source là một thư mục, copy cả thư mục đó
+    sudo cp -r "$SOURCE" "$DESTINATION"
+  elif [ -f "$SOURCE" ]; then
+    # Nếu source là một file, copy file đó
+    sudo cp "$SOURCE" "$DESTINATION"
+  else
+    echo "Source is neither a file nor a directory: $SOURCE"
+    continue
+  fi
+done
 
-echo "Fonts copied from '$source_dir' to '$target_dir'."
+# Tạo lại font cache
+sudo fc-cache -f -v
+
+echo "Fonts copied successfully to $DESTINATION"

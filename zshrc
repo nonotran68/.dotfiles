@@ -12,6 +12,7 @@ SAVEHIST=40000
 ###    ALIAS     ###
 ####################
 alias sudo='sudo '
+alias ...='../..'
 alias c=clear
 alias l='lsd --group-directories-first'
 alias ll='lsd -la --group-directories-first'
@@ -92,8 +93,8 @@ load_conda() {
   fi
   unset __conda_setup
   
-  if [ -f "/home/datpc/miniforge3/etc/profile.d/mamba.sh" ]; then
-    . "/home/datpc/miniforge3/etc/profile.d/mamba.sh"
+  if [ -f "$HOME/miniforge3/etc/profile.d/mamba.sh" ]; then
+    . "$HOME/miniforge3/etc/profile.d/mamba.sh"
   fi
 
   # <<< conda initialize <<<
@@ -126,3 +127,10 @@ if [ -d "$FNM_PATH" ]; then
   export PATH="/home/datpc/.local/share/fnm:$PATH"
   eval "`fnm env`"
 fi
+
+# bun completions
+[ -s "/home/datpc/.bun/_bun" ] && source "/home/datpc/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
