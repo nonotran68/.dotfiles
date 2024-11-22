@@ -1,0 +1,89 @@
+#format = """$directory$character"""
+#[..................](green)
+#[](#3813bd)[](#3813bd bg:#4a4dff)[](#4a4dff bg:#8082ff)[](#8082ff bg:#bfc0ff)[](#bfc0ff) 
+#[](#FDDEA7)[🌴🌴🌴 ⛱️🦀](bold green bg:#FDDEA7)[🌊🐳 ](#FDDEA7 bg:#2400de)[](#2400de)
+#[](blue)[☁️☁️☁️  ☁️🪂☁️](bg:blue)[🌞 ](bg:blue)[](blue)[](#3813bd)[](#3813bd bg:#4a4dff)[](#4a4dff bg:#8082ff)[](#8082ff bg:#bfc0ff)[](#bfc0ff) \
+#noto color emoji is causing bug (do not use this)
+#$fill════╝\
+format = """
+[┌](#3D3B40)\
+$os\
+$directory\
+$git_branch\
+$git_status\
+$fill\
+$git_commit\
+$cmd_duration\
+$conda\
+$status\
+$time
+[└─](#3D3B40)\
+$character\
+
+"""
+
+command_timeout = 600
+add_newline = false
+[character] # The name of the module we are configuring is 'character'
+success_symbol = '[󰄾](#59B4C3)[󰄾](#74E291)[󰄾](#EFF396)' 
+error_symbol = '[󰄾](#A94438)[󰄾](#D24545)[󰄾](#FF8080)' # The 'success_symbol' segment is being set to '➜' with the color 'bold green'
+[username]
+show_always = true
+format = '[$user ](none)'
+
+[os]
+format = '[](#2f4280)[$symbol ](#ffff00 bg:#2f4280)'
+disabled = false
+[os.symbols]
+Arch = " "
+
+[directory]
+home_symbol = ' '
+format = '[](#EFF396 bg:#2f4280)[$path](bold #5e5e5e bg:#EFF396)[ $read_only](red bg:#EFF396)[](#EFF396)' 
+truncation_length = 2
+read_only = '' 
+fish_style_pwd_dir_length = 2
+
+[git_branch]
+format = '[ ](#FFCF96)[on $symbol\($branch\)(:$remote_branch)](black bg:#FFCF96)[](#FFCF96)'
+symbol = ' '
+
+[git_status]
+format = "[─](#ffaa00)[$all_status$ahead_behind](black bg:#ffaa00)[](#ffaa00) "
+untracked = '[?${count} ](red bg:#ffaa00)'
+staged = '[+${count} ](black bg:#ffaa00)'
+modified = '[!${count} ](#1B1A55 bg:#ffaa00)'
+
+[git_commit]
+format = '[#$hash $tag](#BE7B72) '
+only_detached = false
+tag_disabled = false
+tag_symbol = '' 
+[fill]
+symbol = ' '
+style = '#8EC7FF'
+
+[python]
+format = '[](#3474a4)[${symbol}${pyenv_prefix}${version}](#fcd444 bg:#3474a4)[](#3474a4)'
+symbol = ' '
+version_format = '${raw}'
+
+[conda]
+format = '[](green)[$symbol$environment](black bold bg:green)[─](green)'
+symbol = '󱔎 ' 
+ignore_base = false
+
+[cmd_duration]
+min_time = 300
+format = '[$duration](black bg:white)'
+
+[status]
+format = '$symbol' 
+success_symbol = '[](green)[󰄭 ](black bg:green)[](green)'
+symbol = '[](red)[ $status](white bg:red)[](red)'
+disabled = false
+
+[time]
+format = '[](#3128AA)[$time ](bg:#3128AA)[ ](#3128AA)'
+disabled = false
+

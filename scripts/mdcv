@@ -1,0 +1,46 @@
+#!/bin/bash
+
+# Check if python and nbconvert are installed
+command -v python >/dev/null 2>&1 || { echo -e >&2 "\033[31mPython is not installed. Please install it.\033[0m"; exit 1; }
+
+# Check if python -m nbconvert works
+if ! python -m nbconvert --version >/dev/null 2>&1; then
+  echo -e "\033[31mError: python -m nbconvert is not working. Please ensure nbconvert is installed and Python is configured correctly.\033[0m"
+  exit 1
+fi
+
+# Function to convert a single notebook
+convert_notebook() {
+  local filename="$1"
+  local base_name="${filename%.*}"
+  python -m nbconvert --to markdown "$filename" --output "$base_name.md"
+  if [ $? -ne 0 ]; then
+    echo -e "\033[31mError converting $filename\033[0m"
+  else
+    echo -e "\033[32mConverted $filename to $base_name.md\033[0m"
+  fi
+}
+# Handle arguments
+if [[ $# -gt 0 ]]; then
+  for arg in "$@"; do
+    # Resolve relative paths to absolute paths
+    absolute_path=$(realpath "$arg")
+
+    if [[ -d "$absolute_path" ]]; then
+      # If it's a directory, recursively find .ipynb files
+      find "$absolute_path" -name "*.ipynb" | while read file; do
+        convert_notebook "$file"
+      done
+    elif [[ -f "$absolute_path" && "$absolute_path" =~ \.ipynb$ ]]; then
+      convert_notebook "$absolute_path"
+    else
+      echo -e "\033[31mError: '$arg' is not a valid Jupyter notebook file or directory.\033[0m"
+    fi
+  done
+else
+  # Convert all .ipynb files in the current directory
+  for filename in *.ipynb; do
+    convert_notebook "$filename"
+  done
+  echo -e "\033[32mConverted all Jupyter notebooks in the current directory to markdown.\033[0m"
+fi

@@ -1,0 +1,7 @@
+{
+    "diagnostics.disable": [
+        "missing-fields",
+        "param-type-mismatch",
+        "unreachable-code"
+    ]
+}

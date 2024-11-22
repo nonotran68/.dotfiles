@@ -1,0 +1,23 @@
+{
+    "example template": {
+        "prefix": "hel",
+        "body": [
+            "std::cout << Hello ${1:text};"
+        ],
+        "description": "hello"
+    },
+    "Skeleton template": {
+        "prefix": "sk",
+        "body": [
+            "#include <iostream>",
+            "using namespace std;\n",
+            "int main() {",
+            "\tios::sync_with_stdio(0);",
+            "\tcin.tie(0);",
+            "\t$1\n",
+            "\treturn 0;",
+            "}"
+        ],
+    "description": "Template for competitive programming"
+    }
+}
