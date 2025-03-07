@@ -85,7 +85,7 @@ end, { desc = 'Open buffer', noremap = true, silent = true })
 
 --Executing and run code
 local run_table = {
-  ['cpp'] = 'g++ -Wall -Wextra -Weffc++ -Wconversion -Wsign-conversion -O2 -std=c++23 %:p -o %:p:r && time %:p:r && rm %:p:r',
+  ['cpp'] = 'g++ -Wall -Wextra -Weffc++ -Wconversion -Wsign-conversion -Wshadow -O2 -std=c++23 %:p -o %:p:r && time %:p:r && rm %:p:r',
   ['c'] = 'gcc -Wall %:p -o %:p:r && %:p:r',
   ['python'] = 'python %:p',
   ['java'] = 'javac %:p && java %:p:r',
@@ -96,8 +96,8 @@ local run_table = {
   ['go'] = 'go run %:p',
 }
 
-local run_table_with_inp_file = {
-  ['cpp'] = 'g++ -Wall -Wextra -Weffc++ -Wconversion -Wsign-conversion -O2 -std=c++23 %:p -o %:p:r && time %:p:r < %:p:r.inp && rm %:p:r',
+local run_table_with_input_file = {
+  ['cpp'] = 'g++ -Wall -Wextra -Weffc++ -Wconversion -Wsign-conversion -Wshadow -static -O2 -std=c++23 %:p -o %:p:r && time %:p:r < %:p:r.in && rm %:p:r',
   ['c'] = 'gcc -Wall %:p -o %:p:r && %:p:r',
   ['python'] = 'python %:p',
   ['java'] = 'javac %:p && java %:p:r',
@@ -128,9 +128,9 @@ local function run_code()
   end
 end
 
-local function run_code_with_inp_file()
+local function run_code_with_input_file()
   if run_table[vim.bo.filetype] then
-    vim.cmd([[w | botright split | term ]] .. run_table_with_inp_file[vim.bo.filetype])
+    vim.cmd([[w | botright split | term ]] .. run_table_with_input_file[vim.bo.filetype])
   else
     print 'FileType not supported'
   end
@@ -138,10 +138,10 @@ end
 
 vim.keymap.set('n', '<leader>cc', run_code, { desc = 'Compile and run!' })
 vim.keymap.set('n', '<leader>cd', debug_code, { desc = 'Compile for debug!' })
-vim.keymap.set('n', '<leader>ci', run_code_with_inp_file, { desc = 'Compile and run (with input)!' })
+vim.keymap.set('n', '<leader>ci', run_code_with_input_file, { desc = 'Compile and run (with input)!' })
 
 --Toggle Nvim-tree
-vim.keymap.set('n', '<F2>', '<Cmd>NvimTreeToggle<CR>', { desc = 'Toggle NvimTree', silent = true })
+vim.keymap.set('n', '\\', '<Cmd>NvimTreeToggle<CR>', { desc = 'Toggle NvimTree', silent = true })
 
 --Toggle Oil.nvim
 vim.keymap.set('n', '<leader>-', '<CMD>Oil --float<CR>', { desc = 'Open parent directory' })
@@ -157,24 +157,23 @@ vim.keymap.set({ 'n', 'v' }, '_c', '"_c', { desc = 'delete and enter insert mode
 vim.keymap.set('n', '_C', '"_C', { desc = 'delete to the end of the line and enter insert mode', noremap = true, silent = true })
 
 -- Insert newlines without entering insert mode
-vim.keymap.set('n', '<CR>', 'o<Esc>"_D', { noremap = true, silent = true })
-vim.keymap.set('n', '<S-CR>', 'O<Esc>"_D', { noremap = true, silent = true })
+-- vim.keymap.set('n', '<CR>', 'o<Esc>"_D', { noremap = true, silent = true })
+-- vim.keymap.set('n', '<S-CR>', 'O<Esc>"_D', { noremap = true, silent = true })
 
 --Magic keymap to to wrap a block of code with curly braces
-vim.keymap.set('v', '<leader>{', '<Esc>`<O<Esc>i{<Esc>`>o<Esc>i}<Esc>gv>[{', { noremap = true, silent = true })
+vim.keymap.set('v', '<leader>{', '<Esc>`<O<Esc>i{<Esc>`>o<Esc>i}<Esc>gv>[{', { desc = 'Wrap block of text', noremap = true, silent = true })
 
 -- vim.keymap.set('n', '<leader>T', '<Cmd>ToggleTerm<CR>', { noremap = true, silent = true, desc = 'Toggle terminal' })
+
+-- terminal hacky stuff
+local cache_dir = vim.fn.getcwd()
 local open_terminal_in_buffer_dir = function()
-  -- Lấy thư mục của buffer hiện tại
   local buf_dir = vim.fn.expand '%:p:h'
   if buf_dir ~= '' then
-    -- Chuyển thư mục terminal sang thư mục buffer
     vim.cmd('lcd ' .. buf_dir)
   end
-  -- Mở terminal trong cửa sổ mới
   vim.api.nvim_command 'sp | terminal'
 end
 
--- Gán hàm vào phím tắt, ví dụ <leader>t
 vim.keymap.set('n', '<A-t>', open_terminal_in_buffer_dir, { noremap = true, silent = true })
-vim.keymap.set('t', '<A-t>', '<C-\\><C-n><Cmd>bd!<CR>', { noremap = true, silent = true })
+vim.keymap.set('t', '<A-t>', '<C-\\><C-n><Cmd>bd! | lcd ' .. cache_dir .. '<CR>', { noremap = true, silent = true })

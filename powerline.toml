@@ -1,6 +1,6 @@
 #format = """$directory$character"""
 #[..................](green)
-#[](#3813bd)[](#3813bd bg:#4a4dff)[](#4a4dff bg:#8082ff)[](#8082ff bg:#bfc0ff)[](#bfc0ff) 
+#[](#3813bd)[](#3813bd bg:#4a4dff)[](#4a4dff bg:#8082ff)[](#8082ff bg:#bfc0ff)[](#bfc0ff)
 #[](#FDDEA7)[🌴🌴🌴 ⛱️🦀](bold green bg:#FDDEA7)[🌊🐳 ](#FDDEA7 bg:#2400de)[](#2400de)
 #[](blue)[☁️☁️☁️  ☁️🪂☁️](bg:blue)[🌞 ](bg:blue)[](blue)[](#3813bd)[](#3813bd bg:#4a4dff)[](#4a4dff bg:#8082ff)[](#8082ff bg:#bfc0ff)[](#bfc0ff) \
 #noto color emoji is causing bug (do not use this)
@@ -25,7 +25,7 @@ $character\
 command_timeout = 600
 add_newline = false
 [character] # The name of the module we are configuring is 'character'
-success_symbol = '[󰄾](#59B4C3)[󰄾](#74E291)[󰄾](#EFF396)' 
+success_symbol = '[󰄾](#59B4C3)[󰄾](#74E291)[󰄾](#EFF396)'
 error_symbol = '[󰄾](#A94438)[󰄾](#D24545)[󰄾](#FF8080)' # The 'success_symbol' segment is being set to '➜' with the color 'bold green'
 [username]
 show_always = true
@@ -39,9 +39,9 @@ Arch = " "
 
 [directory]
 home_symbol = ' '
-format = '[](#EFF396 bg:#2f4280)[$path](bold #5e5e5e bg:#EFF396)[ $read_only](red bg:#EFF396)[](#EFF396)' 
+format = '[](#EFF396 bg:#2f4280)[$path](bold #5e5e5e bg:#EFF396)[ $read_only](red bg:#EFF396)[](#EFF396)'
 truncation_length = 2
-read_only = '' 
+read_only = ''
 fish_style_pwd_dir_length = 2
 
 [git_branch]
@@ -58,7 +58,7 @@ modified = '[!${count} ](#1B1A55 bg:#ffaa00)'
 format = '[#$hash $tag](#BE7B72) '
 only_detached = false
 tag_disabled = false
-tag_symbol = '' 
+tag_symbol = ''
 [fill]
 symbol = ' '
 style = '#8EC7FF'
@@ -70,15 +70,15 @@ version_format = '${raw}'
 
 [conda]
 format = '[](green)[$symbol$environment](black bold bg:green)[─](green)'
-symbol = '󱔎 ' 
+symbol = '󱔎 '
 ignore_base = false
 
 [cmd_duration]
 min_time = 300
-format = '[$duration](black bg:white)'
+format = '[](white)[$duration](black bg:white)[](white)'
 
 [status]
-format = '$symbol' 
+format = '$symbol'
 success_symbol = '[](green)[󰄭 ](black bg:green)[](green)'
 symbol = '[](red)[ $status](white bg:red)[](red)'
 disabled = false

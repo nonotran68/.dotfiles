@@ -1,0 +1,12 @@
+font_family			JetBrainsMono NF Light
+italic_font			JetBrainsMono NF Light Italic
+bold_font			JetBrainsMono NF Bold
+bold_italic_font		JetBrainsMono NF Bold Italic
+font_size			11.0
+force_ltr			no
+disable_ligatures	never
+
+# BEGIN_KITTY_THEME
+# Chalkboard
+include current-theme.conf
+# END_KITTY_THEME

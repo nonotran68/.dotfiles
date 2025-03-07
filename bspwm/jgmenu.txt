@@ -1,0 +1,4 @@
+Terminal,kitty
+Color Picker,xcolor -s
+Screenrecorder,simplescreenrecorder --start-hidden
+Screenshot,gnome-screenshot -a

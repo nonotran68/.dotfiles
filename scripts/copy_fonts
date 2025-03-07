@@ -1,0 +1,27 @@
+#!/bin/bash
+
+# Get the source directory containing the fonts from the first argument
+source_dir="$1"
+
+# Target directory for fonts
+target_dir="/usr/local/share/fonts"
+
+# Check if source directory exists
+if [ ! -d "$source_dir" ]; then
+  echo "Error: Source directory '$source_dir' does not exist."
+  exit 1
+fi
+
+# Check for root privileges (sudo) since target directory requires administrative access
+if [ "$(id -u)" != "0" ]; then
+  echo "This script requires root privileges. Please run with sudo."
+  exit 1
+fi
+
+# Copy the fonts directory (use -r flag for recursive copy)
+cp -r "$source_dir" "$target_dir"
+
+# Update the font cache (optional, but recommended)
+fc-cache -f -v
+
+echo "Fonts copied from '$source_dir' to '$target_dir'."

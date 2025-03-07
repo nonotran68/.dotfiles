@@ -1,5 +1,4 @@
-# Zathura configuration file
-# See man `man zathurarc'
+# Zathura configuration file See man `man zathurarc'
 
 # Open document in fit-width mode by default
 set adjust-open "best-fit"
@@ -9,13 +8,12 @@ set pages-per-row 1
 
 #stop at page boundries
 set scroll-page-aware "true"
-set smooth-scroll "true"
 set scroll-full-overlap 0.01
-set scroll-step 100
+set scroll-step 500
 
 #zoom settings
 set zoom-min 10
-set guioptions ""
+set guioptions "hv"
 
 # zathurarc-dark
 
@@ -47,6 +45,8 @@ set completion-fg "#E0E0E0" #0C
 set notification-bg "#90A959" #0B
 set notification-fg "#151515" #00
 
+set selection-clipboard clipboard
+
 # set recolor "true"
 # set recolor-lightcolor "#000000" #00
 # set recolor-darkcolor "#E0E0E0" #06
@@ -62,3 +62,27 @@ map [fullscreen] f toggle_fullscreen
 map = zoom in
 map - zoom out
 map 0 zoom 0.0
+
+map [fullscreen] = zoom in
+map [fullscreen] - zoom out
+map [fullscreen] 0 zoom 0.0
+# smooth scroll
+map j feedkeys "<C-Down>"
+map k feedkeys "<C-Up>"
+
+map [fullscreen] j feedkeys "<C-Down>"
+map [fullscreen] k feedkeys "<C-Up>"
+
+# boomarks (different from markes; can be more than one letter)
+map ba focus_inputbar ":bmark "
+map bl focus_inputbar ":blist "
+map bd focus_inputbar ":bdelete "
+map bj focus_inputbar ":bjump "
+
+map [fullscreen] ba focus_inputbar ":bmark "
+map [fullscreen] bl focus_inputbar ":blist "
+map [fullscreen] bd focus_inputbar ":bdelete "
+map [fullscreen] bj focus_inputbar ":bjump "
+
+map d scroll half-down
+map u scroll half-up

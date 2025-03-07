@@ -17,9 +17,58 @@ return { -- You can easily change to a different colorscheme.
     end,
   },
   {
-    {
-      'olimorris/onedarkpro.nvim',
-      priority = 1000, -- Ensure it loads first
+    'craftzdog/solarized-osaka.nvim',
+    lazy = false,
+    priority = 1000,
+    opts = {},
+  },
+  {
+    'olimorris/onedarkpro.nvim',
+    priority = 1000, -- Ensure it loads first
+  },
+  {
+    'binhtran432k/dracula.nvim',
+    priority = 1000,
+    opts = {},
+  },
+  {
+    'ellisonleao/gruvbox.nvim',
+    priority = 1000,
+    config = true,
+    opts = {},
+  },
+  {
+    'rebelot/kanagawa.nvim',
+    priority = 1000,
+    opts = {},
+  },
+  {
+    'EdenEast/nightfox.nvim',
+    priority = 1000,
+    opts = {},
+  },
+  {
+    'catppuccin/nvim',
+    name = 'catppuccin',
+    priority = 1000,
+    opts = {
+      styles = {
+        keywords = { 'italic' },
+      },
     },
+  },
+  {
+    'projekt0n/github-nvim-theme',
+    name = 'github-theme',
+  },
+  {
+    'AlexvZyl/nordic.nvim',
+    priority = 1000,
+  },
+  {
+    'bluz71/vim-moonfly-colors',
+    name = 'moonfly',
+    lazy = false,
+    priority = 1000,
   },
 }

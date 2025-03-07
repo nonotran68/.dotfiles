@@ -1,7 +1,8 @@
 return { -- Autocompletioncmp
   'hrsh7th/nvim-cmp',
-  event = 'InsertEnter',
+  event = { 'InsertEnter', 'CmdlineEnter' },
   dependencies = {
+
     -- Snippet Engine & its associated nvim-cmp source
     {
       'L3MON4D3/LuaSnip',
@@ -21,7 +22,7 @@ return { -- Autocompletioncmp
         {
           'rafamadriz/friendly-snippets',
           config = function()
-            -- disable friendly-snippets
+            -- disable friendly-snippets in global filetype
             require('luasnip.loaders.from_vscode').lazy_load { exclude = { 'all' } }
           end,
         },
@@ -38,6 +39,7 @@ return { -- Autocompletioncmp
     'hrsh7th/cmp-nvim-lsp',
     'hrsh7th/cmp-path',
     'hrsh7th/cmp-nvim-lsp-signature-help',
+    'hrsh7th/cmp-emoji',
   },
   config = function()
     -- See `:help cmp`
@@ -92,8 +94,9 @@ return { -- Autocompletioncmp
           luasnip.lsp_expand(args.body)
         end,
       },
-      completion = { completeopt = 'menu,menuone,noinsert' },
+      completion = { completeopt = 'menu,menuone,noselect' },
 
+      preselect = cmp.PreselectMode.Item,
       -- For an understanding of why these mappings were
       -- chosen, you will need to read `:help ins-completion`
       --
@@ -169,6 +172,7 @@ return { -- Autocompletioncmp
         { name = 'luasnip' },
         { name = 'path' },
         { name = 'nvim_lsp_signature_help' },
+        { name = 'emoji', option = { insert = true } },
       },
       -- window = {
       --   -- completion = cmp.config.window.bordered(),
@@ -185,12 +189,13 @@ return { -- Autocompletioncmp
       window = {
         completion = cmp.config.window.bordered {
           side_padding = 0,
-          winhighlight = 'Normal:Normal,FloatBorder:Normal,CursorLine:Visual,Search:None',
+          winhighlight = 'Normal:Normal,FloatBorder:Normal,CursorLine:PmenuSel,Search:None',
         },
         documentation = cmp.config.window.bordered {
           winhighlight = 'Normal:Normal,FloatBorder:Normal,CursorLine:Visual,Search:None',
         },
       },
+
       formatting = {
         format = function(_, vim_item)
           local label = vim_item.abbr
@@ -206,6 +211,11 @@ return { -- Autocompletioncmp
           return vim_item
         end,
       },
+      view = {
+        entries = { name = 'custom', selection_order = 'near_cursor' },
+      },
     }
+
+    vim.api.nvim_set_hl(0, 'PmenuSel', { bg = '#a0c869', fg = '#131313' })
   end,
 }
